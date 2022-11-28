@@ -27,6 +27,11 @@ public class MonitorApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Running.... endpoint: {}", url);
+
+		for (int i = 0; i < args.length; ++i) {
+			log.info("args[{}]: {}", i, args[i]);
+		}
+
 		WebSocketService web3jService = new WebSocketService(url, true);
 		web3jService.connect();
 		Web3j web3j = Web3j.build(web3jService);
