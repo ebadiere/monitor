@@ -12,6 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.PropertySource;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.websocket.WebSocketService;
 import org.web3j.tx.gas.DefaultGasProvider;
 
@@ -26,7 +27,7 @@ public class MonitorApplication implements CommandLineRunner, ExitCodeGenerator 
 	String url;
 
 	public MonitorApplication(MonitorProperties monitorProperties) {
-		this.publicKey = monitorProperties.getPublicKey();
+		this.publicKey = "0x" + monitorProperties.getPublicKey();
 		this.privateKey = monitorProperties.getPrivateKey();
 		this.url = monitorProperties.getNetworkEndpoint();
 	}
@@ -44,13 +45,16 @@ public class MonitorApplication implements CommandLineRunner, ExitCodeGenerator 
 		}
 
 
-		WebSocketService web3jService = new WebSocketService(url, true);
-		web3jService.connect();
-		Web3j web3j = Web3j.build(web3jService);
+//		WebSocketService web3jService = new WebSocketService(url, true);
+		Web3j web3j = Web3j.build(new HttpService());
+//		web3jService.connect();
+//		Web3j web3j = Web3j.build(web3jService);
 
 		if (args[0].equals("quote")){
-			Credentials credentials = Credentials.create(privateKey, publicKey);
+			log.info("Getting quote");
+			Credentials credentials = Credentials.create(privateKey);
 			this.quoter = new Quoter(web3j, credentials);
+			this.quoter.getQuoteForSinglePool();
 		}
 
 		// Subscribe to blocks
