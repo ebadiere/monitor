@@ -6,7 +6,7 @@ and re-balance the pools if there is an arbitrage opportunity.  It uses the Web3
 It will call the solidity contracts in the arbitrage project.
 
 #Possible future enhancements
-As it consumes some UniswapV3 contracts this could he enhances to become a full java UniswapV3 SDK.
+As it consumes some UniswapV3 contracts this could be enhanced to become a full java UniswapV3 SDK.
 
 #Current WIP
 Building out the price Quote for a given pool.
