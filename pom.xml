@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>org.web3j</groupId>
 			<artifactId>core</artifactId>
-			<version>5.0.0</version>
+			<version>4.9.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -74,14 +74,36 @@
             </includes>
           </abiSourceFiles>
           <outputDirectory>
-            <java>src/main/java/generated</java>
-            <bin>src/main/bin/generated</bin>
-            <abi>src/main/abi/generated</abi>
+            <java>src/main/java</java>
+            <bin>src/main/bin</bin>
+            <abi>src/main/abi</abi>
           </outputDirectory>
           <contract>
             <includes>
-              <include>IQuoter</include>
+              <include>IUniswapV3Pool</include>
             </includes>
+						<includes>
+							<include>IUniswapV3PoolActions</include>
+						</includes>
+						<includes>
+							<include>IUniswapV3PoolDerivedState</include>
+						</includes>
+						<includes>
+							<include>IUniswapV3PoolEvents</include>
+						</includes>
+						<includes>
+							<include>IUniswapV3PoolImmutables</include>
+						</includes>
+						<includes>
+							<include>IUniswapV3PoolOwnerActions</include>
+						</includes>
+						<includes>
+							<include>IUniswapV3PoolState</include>
+						</includes>
+						<includes>
+							<include>IUniswapV3Pool</include>
+						</includes>
+
 <!--            <excludes>-->
 <!--              <exclude>mortal</exclude>-->
 <!--            </excludes>-->

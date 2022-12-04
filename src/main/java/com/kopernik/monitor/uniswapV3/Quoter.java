@@ -3,25 +3,28 @@ package com.kopernik.monitor.uniswapV3;
 import java.math.BigInteger;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
-import com.zuehlke.blockchain.model.IQuoter;
-import org.web3j.protocol.core.RemoteFunctionCall;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.tuples.generated.Tuple7;
+import org.web3j.tx.ReadonlyTransactionManager;
+import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.DefaultGasProvider;
+import com.zuehlke.blockchain.model.IUniswapV3Pool;
 
 public class Quoter {
 
   String SHIB = "0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE";
   String WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
-  String contractAddress = "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6";
-  IQuoter iQuoter;
+  String contractAddress = "0x94E4b2E24523CF9B3e631A6943C346dF9687c723";
+  IUniswapV3Pool iUniswapV3Pool;
 
   public Quoter(Web3j web3j, Credentials credentials) {
-    iQuoter = IQuoter.load(contractAddress, web3j, credentials, new DefaultGasProvider());
+    TransactionManager manager = new ReadonlyTransactionManager(web3j, "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266");
+    iUniswapV3Pool = IUniswapV3Pool.load(contractAddress, web3j, manager, new DefaultGasProvider());
   }
 
   public String getQuoteForSinglePool() throws Exception {
 
-    TransactionReceipt receipt = iQuoter.quoteExactInputSingle(SHIB, WETH, BigInteger.valueOf(3000), BigInteger.valueOf(10000), BigInteger.valueOf(0)).send();
+    Tuple7<BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, Boolean> slot0 = iUniswapV3Pool.slot0().send();
+
 
     return "tooMuch";
   }

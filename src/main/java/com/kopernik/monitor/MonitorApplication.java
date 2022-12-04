@@ -12,6 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.PropertySource;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.websocket.WebSocketService;
 import org.web3j.tx.gas.DefaultGasProvider;
@@ -47,6 +48,8 @@ public class MonitorApplication implements CommandLineRunner, ExitCodeGenerator 
 
 //		WebSocketService web3jService = new WebSocketService(url, true);
 		Web3j web3j = Web3j.build(new HttpService());
+		EthGasPrice ethGasPrice = web3j.ethGasPrice().send();
+		log.info("Gas Price: {}", ethGasPrice.getGasPrice());
 //		web3jService.connect();
 //		Web3j web3j = Web3j.build(web3jService);
 
