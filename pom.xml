@@ -103,6 +103,9 @@
 						<includes>
 							<include>IUniswapV3Pool</include>
 						</includes>
+						<includes>
+							<include>IUniswapV3Factory</include>
+						</includes>
 
 <!--            <excludes>-->
 <!--              <exclude>mortal</exclude>-->

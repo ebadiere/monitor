@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Setter
 public class MonitorProperties {
   private String networkEndpoint;
+  private String poolAddress;
   private String publicKey;
   private String privateKey;
 }

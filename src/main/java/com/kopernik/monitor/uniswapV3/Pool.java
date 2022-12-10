@@ -1,5 +1,6 @@
 package com.kopernik.monitor.uniswapV3;
 
+import com.zuehlke.blockchain.model.IUniswapV3Factory;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -17,11 +18,19 @@ import com.zuehlke.blockchain.model.IUniswapV3Pool;
 @Slf4j
 public class Pool {
 
+  IUniswapV3Factory iUniswapV3Factory;
   IUniswapV3Pool iUniswapV3Pool;
+
+  String FACTORY_ADDRESS = "0x1F98431c8aD98523631AE4a59f267346ea31F984";
 
   public Pool(Web3j web3j, Credentials credentials, String contractAddress) {
     TransactionManager manager = new ReadonlyTransactionManager(web3j, credentials.getAddress());
     iUniswapV3Pool = IUniswapV3Pool.load(contractAddress, web3j, manager, new DefaultGasProvider());
+    iUniswapV3Factory = IUniswapV3Factory.load(FACTORY_ADDRESS, web3j, manager, new DefaultGasProvider());
+  }
+
+  public String getPoolAddress(String token1Address, String token2Address, BigInteger fee) throws Exception {
+    return iUniswapV3Factory.getPool(token1Address, token2Address, fee).send();
   }
 
   public BigDecimal token0Price() throws Exception {
